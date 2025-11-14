@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="MicroservicioProyecto.Application/MicroservicioProyecto.Application.csproj" />
+  <Project Path="MicroservicioProyecto.Domain/MicroservicioProyecto.Domain.csproj" />
+  <Project Path="MicroservicioProyecto.Infrastructure/MicroservicioProyecto.Infrastructure.csproj" />
+  <Project Path="MicroservicioProyecto/MicroservicioProyecto.csproj" />
+</Solution>

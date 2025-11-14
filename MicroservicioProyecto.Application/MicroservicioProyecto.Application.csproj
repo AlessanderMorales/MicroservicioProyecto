@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MicroservicioProyecto.Domain\MicroservicioProyecto.Domain.csproj" />
+    <ProjectReference Include="..\MicroservicioProyecto.Infrastructure\MicroservicioProyecto.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
