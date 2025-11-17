@@ -48,6 +48,21 @@ namespace MicroservicioProyecto.Infrastructure.Repository
                 @"CALL sp_desasignar_usuario_proyecto(@IdProyecto, @IdUsuario);",
                 new { IdProyecto = idProyecto, IdUsuario = idUsuario });
         }
+
+        public IEnumerable<Proyecto> GetProyectosByUsuario(int idUsuario)
+        {
+            using var conn = _connection.CreateConnection();
+
+            string sql = @"
+        SELECT p.*
+        FROM Proyecto p
+        INNER JOIN Proyecto_Usuario pu
+            ON pu.id_proyecto = p.id_proyecto
+        WHERE pu.id_usuario = @idUsuario";
+
+            return conn.Query<Proyecto>(sql, new { idUsuario });
+        }
+
     }
 }
 

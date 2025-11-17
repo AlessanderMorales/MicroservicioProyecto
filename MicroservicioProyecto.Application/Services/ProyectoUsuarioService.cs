@@ -1,9 +1,10 @@
-﻿using System;
+﻿using MicroservicioProyecto.Domain.Entities;
+using MicroservicioProyecto.Infrastructure.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MicroservicioProyecto.Infrastructure.Repository;
 
 namespace MicroservicioProyecto.Application.Services
 {
@@ -24,6 +25,12 @@ namespace MicroservicioProyecto.Application.Services
 
         public void Desasignar(int idProyecto, int idUsuario)
             => _repo.Desasignar(idProyecto, idUsuario);
+
+        public IEnumerable<Proyecto> GetProyectosByUsuario(int idUsuario)
+        {
+            return _repo.GetProyectosByUsuario(idUsuario);
+        }
+
     }
 }
 

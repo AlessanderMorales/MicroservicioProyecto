@@ -14,9 +14,11 @@ namespace MicroservicioProyecto.Infrastructure.Repository
     {
         private readonly MySqlConnectionSingleton _connection;
 
+
         public ProyectoRepository(MySqlConnectionSingleton connection)
         {
             _connection = connection;
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
         }
 
         public IEnumerable<Proyecto> GetAll()

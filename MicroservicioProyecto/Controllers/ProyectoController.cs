@@ -17,11 +17,27 @@ namespace MicroservicioProyecto.Controllers
             _usuarioService = usuarioService;
         }
 
+        // ============================================
+        // PROYECTOS CRUD
+        // ============================================
         [HttpGet]
-        public IActionResult GetAll() => Ok(_service.GetAll());
+        public IActionResult GetAll()
+        {
+            var lista = _service.GetAll().ToList();
+            return Ok(lista);
+        }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id) => Ok(_service.GetById(id));
+        [HttpGet("{id:int}")]
+        public IActionResult GetById(int id)
+        {
+            var proyecto = _service.GetById(id);
+
+            if (proyecto == null)
+                return NotFound(new { mensaje = "Proyecto no encontrado" });
+
+            return Ok(proyecto);
+        }
+
 
         [HttpPost]
         public IActionResult Create(Proyecto p)
@@ -30,7 +46,7 @@ namespace MicroservicioProyecto.Controllers
             return Ok("Proyecto creado.");
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public IActionResult Update(int id, Proyecto p)
         {
             p.IdProyecto = id;
@@ -38,31 +54,46 @@ namespace MicroservicioProyecto.Controllers
             return Ok("Proyecto actualizado.");
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)
         {
             _service.Delete(id);
             return Ok("Proyecto eliminado.");
         }
 
-        // Gestión de usuarios
-        [HttpGet("{id}/usuarios")]
-        public IActionResult GetUsuarios(int id)
-            => Ok(_usuarioService.GetUsuarios(id));
+        // ============================================
+        // USUARIOS ASIGNADOS A PROYECTO
+        // ============================================
+        [HttpGet("{idProyecto:int}/usuarios")]
+        public IActionResult GetUsuarios(int idProyecto)
+            => Ok(_usuarioService.GetUsuarios(idProyecto));
 
-        [HttpPost("{id}/usuarios/{usuarioId}")]
-        public IActionResult Asignar(int id, int usuarioId)
+        [HttpPost("{idProyecto:int}/usuarios/{idUsuario:int}")]
+        public IActionResult Asignar(int idProyecto, int idUsuario)
         {
-            _usuarioService.Asignar(id, usuarioId);
+            _usuarioService.Asignar(idProyecto, idUsuario);
             return Ok("Usuario asignado.");
         }
 
-        [HttpDelete("{id}/usuarios/{usuarioId}")]
-        public IActionResult Desasignar(int id, int usuarioId)
+        [HttpDelete("{idProyecto:int}/usuarios/{idUsuario:int}")]
+        public IActionResult Desasignar(int idProyecto, int idUsuario)
         {
-            _usuarioService.Desasignar(id, usuarioId);
+            _usuarioService.Desasignar(idProyecto, idUsuario);
             return Ok("Usuario desasignado.");
         }
+
+        // ============================================
+        // PROYECTOS POR USUARIO  (RUTA CORREGIDA)
+        // ============================================
+        // ANTES: "usuario/{idUsuario}"  ← conflicto con {id}
+        // AHORA: "por-usuario/{idUsuario}"
+        [HttpGet("por-usuario/{idUsuario:int}")]
+        public IActionResult GetProyectosByUsuario(int idUsuario)
+        {
+            var proyectos = _usuarioService.GetProyectosByUsuario(idUsuario);
+            return Ok(proyectos);
+        }
+
+
     }
 }
-
