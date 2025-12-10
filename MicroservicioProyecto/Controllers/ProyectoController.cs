@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MicroservicioProyecto.Application.Services;
 using MicroservicioProyecto.Domain.Entities;
 using MicroservicioProyecto.Domain.Validators;
@@ -8,6 +9,7 @@ namespace MicroservicioProyecto.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize] // ✅ JWT: Todos los endpoints requieren autenticación
     public class ProyectoController : ControllerBase
     {
         private readonly ProyectoService _service;
